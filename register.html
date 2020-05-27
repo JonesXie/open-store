@@ -195,6 +195,8 @@
       <a href="javascript:;" class="submit" onclick="submit()">立即注册</a>
     </div>
   </body>
+  <script src="./js/md5.js"></script>
+  <script src="./js/mixin.js"></script>
   <script>
     // var request = "https://qiyu.1qishun.com";
     var request = "https://appapi.1qishun.com";
@@ -272,7 +274,7 @@
               data: {
                 mobile: $("#phone").val(),
                 code: $("#code").val(),
-                password: $("#pwd").val(),
+                password: MD5($("#pwd").val()),
                 invitationCode: invitor,
               },
               package: "registor-h5",
