@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no viewport-fit=cover"
+    />
+    <title>开店注册页</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <link href="./css/reset.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <link href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+    <style>
+      body {
+        min-height: 100vh;
+        background-color: #f8f9fb;
+      }
+      .header {
+        width: 100vw;
+        height: 71vw;
+        position: relative;
+        top: 0;
+        left: 0;
+        background-image: url("./img/header-bg.png");
+        background-position: top center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .header .content {
+        width: 78vw;
+        position: absolute;
+        left: 10vw;
+        bottom: 5vw;
+        text-align: center;
+        color: #000;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .desc {
+        font-size: 3.5vw;
+        line-height: 1.5;
+      }
+      .step-wrap {
+        text-align: center;
+        margin-bottom: 3vw;
+      }
+      .step {
+        width: 62vw;
+        height: auto;
+      }
+      .form {
+        width: 92vw;
+        margin: 0 auto;
+        background-color: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(255, 0, 46, 0.02);
+        border-radius: 10px;
+        box-sizing: border-box;
+        padding: 5.8vw 8.5vw;
+      }
+      .form-item {
+        padding: 12px 16px;
+        box-sizing: border-box;
+        box-shadow: 0px 1px 3px 0px rgba(82, 82, 82, 0.22);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+      }
+      .form-item-code {
+        width: 48vw;
+      }
+      .form-item .item-img {
+        width: 12px;
+        height: auto;
+      }
+      .form-item .input {
+        margin-left: 3.7vw;
+        color: #808080;
+        font-size: 3.5vw;
+        width: 70%;
+      }
+      .code-wrap {
+        display: flex;
+        align-items: center;
+        margin: 14px 0;
+      }
+      .get-code {
+        font-size: 3.7vw;
+        color: #ff0430;
+        border: 1px solid rgba(255, 50, 76, 1);
+        border-radius: 15px;
+        margin-left: 2vw;
+        width: 25vw;
+        text-align: center;
+        padding: 1.2vw 0;
+        line-height: normal;
+      }
+      .isDisabled {
+        cursor: not-allowed;
+        background: #e4e4e4 !important;
+        color: #999 !important;
+        border: 1px solid #999;
+      }
+      .invitor {
+        font-size: 3.5vw;
+        color: #000000;
+        margin-top: 12px;
+        display: none;
+        text-align: center;
+      }
+      .invitor .invitor-img {
+        width: 16px;
+        position: relative;
+        top: -1px;
+      }
+      .invitor .invitor-txt {
+        margin: 0 2vw 0 2vw;
+      }
+      .btn-wrap {
+        margin-top: 9vw;
+        text-align: center;
+        padding-bottom: 10vw;
+      }
+      .btn-wrap a {
+        display: inline-block;
+        width: 35vw;
+        height: 10vw;
+        box-sizing: border-box;
+        border-radius: 5vw;
+        font-size: 4.2vw;
+        line-height: 9.5vw;
+      }
+      .btn-wrap .download {
+        background-color: #fff;
+        color: #ff2e49;
+        border: 1px solid #ff2e49;
+      }
+      .btn-wrap .submit {
+        background: linear-gradient(-90deg, #ff002e 0%, #ff324c 100%);
+        color: #fff;
+        margin-left: 5vw;
+      }
+      .custom-classname {
+        background-color: #4c4c4c;
+      }
+      .weui-toptips {
+        width: 120px;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="content">
+        <div class="title">个人店</div>
+        <p class="desc">
+          一个帮助普通人创业的电商平台，依托于强大的供应链体系和电商系统，帮助每个人开通自营商品销售，同时一键导入平台海量商品。
+        </p>
+      </div>
+    </div>
+    <div class="step-wrap">
+      <img src="./img/step.png" alt="" class="step" />
+    </div>
+    <div class="form">
+      <div class="form-item">
+        <img src="./img/phone.png" alt="" class="item-img" />
+        <input placeholder="请输入手机号码" type="tel" id="phone" class="input" onblur="validTel(event)" />
+      </div>
+      <div class="code-wrap">
+        <div class="form-item form-item-code">
+          <img src="./img/code.png" alt="" class="item-img" />
+          <input placeholder="请输入验证码" type="number" id="code" class="input" />
+        </div>
+        <div class="get-code" onclick="getCode()">获取验证码</div>
+      </div>
+      <div class="form-item">
+        <img src="./img/password.png" alt="" class="item-img" />
+        <input placeholder="请输入密码" type="password" id="pwd" class="input" />
+        <!-- <input placeholder="请输入密码" id="pwd" class="input" /> -->
+      </div>
+      <div class="invitor">
+        <img class="invitor-img" src="./img/invitor.png" alt="" />
+        <span class="invitor-txt">邀请人</span>
+        <span id="invitor">400-002-5688</span>
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <a href="http://openstore.1qishun.com/download.html" class="download">下载APP</a>
+      <a href="javascript:;" class="submit" onclick="submit()">立即注册</a>
+    </div>
+  </body>
+  <script>
+    // var request = "https://qiyu.1qishun.com";
+    var request = "https://appapi.1qishun.com";
+    var clickCode = true,
+      time = 60,
+      invitor;
+    (function () {
+      if (getQueryString("c")) {
+        $(".invitor").show();
+        invitor = getQueryString("c");
+        $("#invitor").text(invitor);
+      }
+    })();
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+    function validTel(e) {
+      if (!e.target.value) {
+        return false;
+      }
+      const reg = /^1[3-9]\d{9}$/;
+      !reg.test(e.target.value) && ((e.target.value = null), errorTips("手机号不正确"));
+    }
+    function getCode() {
+      if ($("#phone").val()) {
+        var smsData = {
+          client: "h5",
+          data: { mobile: $("#phone").val() },
+          package: "registor-h5",
+          token: "",
+          version: "1.0.0",
+        };
+        clickCode &&
+          $.ajax({
+            url: request + "/api/logIn/getRegistrationSmsCode",
+            data: JSON.stringify(smsData),
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+              errorTips(data.message);
+              data.result === 1 && countDown();
+            },
+          });
+      } else {
+        errorTips("请输入手机号");
+      }
+    }
+    function countDown() {
+      clickCode = false;
+      $(".get-code").addClass("isDisabled");
+      var timer = setInterval(function () {
+        if (time > 1) {
+          time--;
+          $(".get-code").text(time + "s后重试");
+        } else {
+          clearInterval(timer);
+          $(".get-code").text("获取验证码");
+          $(".get-code").removeClass("isDisabled");
+          time = 60;
+          clickCode = true;
+        }
+      }, 1000);
+    }
+    function submit() {
+      if ($("#phone").val()) {
+        if ($("#code").val()) {
+          if ($("#pwd").val()) {
+            var submitData = {
+              client: "h5",
+              data: {
+                mobile: $("#phone").val(),
+                code: $("#code").val(),
+                password: $("#pwd").val(),
+                invitationCode: invitor,
+              },
+              package: "registor-h5",
+              token: "",
+              version: "1.0.0",
+            };
+            var loading = weui.loading("数据提交中");
+            $.ajax({
+              url: request + "/api/logIn/userRegistration",
+              data: JSON.stringify(submitData),
+              type: "POST",
+              contentType: "application/json;charset=UTF-8",
+              success: function (data) {
+                if (data.result === 1) {
+                  weui.toast("注册成功", 2000);
+                  setTimeout(function () {
+                    window.open("http://openstore.1qishun.com/download.html", "_self");
+                  }, 2000);
+                } else {
+                  errorTips(data.message);
+                }
+              },
+              complete: function () {
+                loading.hide();
+              },
+            });
+          } else {
+            errorTips("请输入密码");
+          }
+        } else {
+          errorTips("请输入验证码");
+        }
+      } else {
+        errorTips("请输入手机号");
+      }
+    }
+    function errorTips(v) {
+      weui.topTips(v, {
+        duration: 2000,
+        className: "custom-classname",
+      });
+    }
+  </script>
+</html>

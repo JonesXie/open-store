@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>易企顺app下载</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <style>
+      .content {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url("./img/background.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top center;
+        box-sizing: border-box;
+      }
+      .link {
+        position: relative;
+        padding-top: 35vw;
+        text-align: center;
+        z-index: 9;
+      }
+      .andriod {
+        width: 48vw;
+        height: 10vw;
+        display: block;
+        margin: 0 auto;
+        background-image: url("./img/andriod.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        margin-top: 5vw;
+      }
+      .ios {
+        width: 48vw;
+        height: 10vw;
+        display: block;
+        margin: 0 auto;
+        background-image: url("./img/iphone.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* 浏览器打开蒙版 */
+      .share-alert {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+        display: none;
+      }
+      .share-alert > .share-alert-bg {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        margin: 0 auto;
+      }
+      .share-alert > .share-alert-content {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 20px;
+        z-index: 10001;
+        text-align: center;
+      }
+      .share-alert > .share-alert-content > img {
+        width: 80%;
+        margin-bottom: 30px;
+      }
+      .share-alert > .share-alert-content > a > img {
+        width: 30%;
+        height: 7%;
+      }
+    </style>
+    <link href="./css/reset.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="content">
+      <div class="link">
+        <a href="https://apps.apple.com/cn/app/id1478848866" class="ios" target="_self"></a>
+        <a
+          href="http://file.1qishun.com/upload/appVersion/%E6%98%93%E4%BC%81%E9%A1%BA.apk"
+          class="andriod"
+          target="_self"
+        ></a>
+      </div>
+    </div>
+    <div class="share-alert" id="share-alert">
+      <div class="share-alert-bg"></div>
+      <div class="share-alert-content">
+        <img alt="" src="./img/shade.png" />
+        <a class="close" onclick="closeAlert()" href="javascript:;">
+          <img alt="" src="./img/know.png" />
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    var share = document.getElementById("share-alert");
+    // 验证微信内浏览器
+    function validWXNav() {
+      var ua = navigator.userAgent.toLowerCase();
+      return ua.match(/MicroMessenger/i) == "micromessenger";
+    }
+    function closeAlert() {
+      share.style.display = "none";
+    }
+    //弹窗
+    (function () {
+      validWXNav() && (share.style.display = "block");
+    })();
+  </script>
+</html>
