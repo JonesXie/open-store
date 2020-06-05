@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>易企顺app下载</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <style></style>
+    <link href="./css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.1/css/swiper.min.css" rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.1/js/swiper.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <style>
+      .invitor {
+        font-size: 3.5vw;
+        color: #000000;
+        display: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3vw;
+        box-sizing: border-box;
+      }
+      .invitor .invitor-img {
+        width: 16px;
+        position: relative;
+        top: -1px;
+      }
+      .invitor .invitor-txt {
+        margin: 0 2vw 0 2vw;
+      }
+      .invitor-copy {
+        width: 3.5vw;
+        height: auto;
+        margin-left: 3vw;
+      }
+      .btn-wrap {
+        margin: 3.733vw auto 0;
+        text-align: center;
+        padding-bottom: 6vw;
+      }
+      .btn-wrap .btn {
+        height: 13.33333vw;
+        width: 80.555vw;
+        text-align: center;
+        line-height: 13.33333vw;
+        display: inline-block;
+        background-color: #ff224e;
+        font-size: 4.8vw;
+        color: #fff;
+        border-radius: 41vw;
+      }
+      .swiper-container {
+        width: 100vw;
+        height: 144vw; /* 540px */
+        background-image: url("./img/downlaod-swiper-bg.png");
+        background-position: top center;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+      }
+      .swiper-slide {
+        text-align: center;
+      }
+      .swiper-img {
+        margin-top: 28vw;
+        width: 86.666vw;
+        height: auto;
+      }
+      .swiper-pagination-bullet-active {
+        background-color: #ff2541;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img class="swiper-img" src="./img/download-swiper1.png" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <img class="swiper-img" src="./img/download-swiper2.png" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <img class="swiper-img" src="./img/download-swiper3.png" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <img class="swiper-img" src="./img/download-swiper4.png" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <img class="swiper-img" src="./img/download-swiper5.png" alt="" />
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <div class="invitor" onclick="copyText()">
+      <img class="invitor-img" src="./img/invitor.png" alt="" />
+      <span class="invitor-txt">邀请人</span>
+      <span id="invitor">400-002-5688</span>
+      <img class="invitor-copy" src="./img/copy.png" alt="" />
+    </div>
+    <div class="btn-wrap">
+      <a class="btn" href="https://a.app.qq.com/o/simple.jsp?pkgname=com.lanhai.yiqishun">下载手机APP</a>
+    </div>
+    <script src="./js/clipboard.min.js"></script>
+  </body>
+  <script>
+    var invitor;
+    (function () {
+      if (getQueryString("c")) {
+        $(".invitor").show();
+        invitor = getQueryString("c");
+        $("#invitor").text(invitor);
+        $(".invitor").data("clipboard-text", invitor);
+      }
+    })();
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+    function copyText() {
+      var btnCopy = new ClipboardJS(".invitor");
+      btnCopy.on("success", function (e) {
+        alert("已复制");
+        btnCopy.destroy();
+      });
+      btnCopy.on("error", function (e) {
+        alert("复制失败");
+        btnCopy.destroy();
+      });
+    }
+    var mySwiper = new Swiper(".swiper-container", {
+      autoplay: {
+        delay: 9000,
+        stopOnLastSlide: false,
+        disableOnInteraction: true,
+      },
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>
+</html>
