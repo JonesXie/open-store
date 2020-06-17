@@ -2,8 +2,11 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>易企顺app下载</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no viewport-fit=cover"
+    />
+    <title>偶的店app下载</title>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <style></style>
     <link href="./css/reset.css" rel="stylesheet" type="text/css" />
@@ -144,7 +147,7 @@
         <div class="swiper-slide">
           <div class="img-wrap">
             <img class="swiper-img" src="./img/download-swiper1.png" alt="" />
-            <div class="dialog">易企顺小店</div>
+            <div class="dialog">偶的店</div>
           </div>
           <div class="swiper-title">偶的店</div>
           <div class="swiper-dec">手机赚钱神器，开小店赚大钱</div>
@@ -168,7 +171,7 @@
         <div class="swiper-slide">
           <div class="img-wrap">
             <img class="swiper-img" src="./img/download-swiper4.png" alt="" />
-            <div class="dialog">易企顺发货</div>
+            <div class="dialog">平台发货</div>
           </div>
           <div class="swiper-title">平台直接发货</div>
           <div class="swiper-dec">无需进货、发货、平台全部搞定</div>
@@ -191,12 +194,119 @@
       <img class="invitor-copy" src="./img/copy.png" alt="" />
     </div>
     <div class="btn-wrap">
-      <a class="btn" href="https://a.app.qq.com/o/simple.jsp?pkgname=com.lanhai.yiqishun">下载手机APP</a>
+      <div class="btn">下载手机APP</div>
+    </div>
+    <div class="overlay" onclick="hideOverlay()">
+      <div class="form" onclick="stopProp(event)">
+        <div class="form-item">
+          <img src="./img/phone.png" alt="" class="item-img" />
+          <input placeholder="请输入手机号码" type="tel" id="phone" class="input" onblur="validTel(event)" />
+        </div>
+        <div class="code-wrap">
+          <div class="form-item form-item-code">
+            <img src="./img/code.png" alt="" class="item-img" />
+            <input placeholder="请输入验证码" type="number" id="code" class="input" />
+          </div>
+          <div class="get-code" onclick="getCode()">获取验证码</div>
+        </div>
+        <div class="download-wrap">
+          <p class="submit" onclick="submit()">注册并下载</p>
+          <p class="cancel" onclick="hideOverlay()">残忍拒绝</p>
+        </div>
+      </div>
     </div>
     <script src="./js/clipboard.min.js"></script>
+    <style>
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+      }
+      .form {
+        width: 88vw;
+        background-color: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(255, 0, 46, 0.02);
+        border-radius: 10px;
+        box-sizing: border-box;
+        padding: 8vw 4vw 4vw;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .form-item {
+        padding: 12px 16px;
+        box-sizing: border-box;
+        box-shadow: 0px 1px 3px 0px rgba(82, 82, 82, 0.05);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+      }
+      .form-item-code {
+        width: 48vw;
+      }
+      .form-item .item-img {
+        width: 12px;
+        height: auto;
+      }
+      .form-item .input {
+        margin-left: 3.7vw;
+        color: #808080;
+        font-size: 3.5vw;
+        width: 70%;
+      }
+      .code-wrap {
+        display: flex;
+        align-items: center;
+        margin: 24px 0;
+      }
+      .get-code {
+        font-size: 3.7vw;
+        color: #ff0430;
+        border: 1px solid rgba(255, 50, 76, 1);
+        border-radius: 15px;
+        margin-left: 2vw;
+        width: 25vw;
+        text-align: center;
+        padding: 1.2vw 0;
+        line-height: normal;
+      }
+      .isDisabled {
+        cursor: not-allowed;
+        background: #e4e4e4 !important;
+        color: #999 !important;
+        border: 1px solid #999;
+      }
+      .download-wrap {
+        text-align: center;
+      }
+      .download-wrap .submit {
+        padding: 2vw 6vw;
+        background-color: #ff224e;
+        width: 60%;
+        margin: 0 auto;
+        color: #fff;
+        font-size: 4vw;
+        border-radius: 8vw;
+      }
+      .download-wrap .cancel {
+        padding: 2vw 0;
+        color: #999;
+        font-size: 4vw;
+      }
+    </style>
   </body>
   <script>
-    var invitor;
+    // var request = "http://192.168.1.2:8805";
+    var request = "https://appapi.1qishun.com";
+    var clickCode = true,
+      time = 60,
+      invitor;
     (function () {
       if (getQueryString("c")) {
         $(".invitor").show();
@@ -231,11 +341,6 @@
       });
     }
     var mySwiper = new Swiper(".swiper-container", {
-      // autoplay: {
-      //   delay: 9000,
-      //   stopOnLastSlide: false,
-      //   disableOnInteraction: true,
-      // },
       loop: true,
       pagination: {
         el: ".swiper-pagination",
@@ -247,5 +352,119 @@
         },
       },
     });
+    $(".btn").click(function (e) {
+      $(".overlay").show();
+    });
+
+    function validTel(e) {
+      if (!e.target.value) {
+        return false;
+      }
+      const reg = /^1[3-9]\d{9}$/;
+      !reg.test(e.target.value) && ((e.target.value = null), errorTips("手机号不正确"));
+    }
+    function getCode() {
+      if ($("#phone").val()) {
+        var smsData = {
+          client: "h5",
+          data: { mobile: $("#phone").val() },
+          package: "registor-h5",
+          token: "",
+          version: "1.0.0",
+        };
+        clickCode &&
+          $.ajax({
+            url: request + "/api/logIn/getRegistrationSmsCode",
+            data: JSON.stringify(smsData),
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+              errorTips(data.message);
+              data.result === 1 && countDown();
+            },
+          });
+      } else {
+        errorTips("请输入手机号");
+      }
+    }
+    function countDown() {
+      clickCode = false;
+      $(".get-code").addClass("isDisabled");
+      var timer = setInterval(function () {
+        if (time > 1) {
+          time--;
+          $(".get-code").text(time + "s后重试");
+        } else {
+          clearInterval(timer);
+          $(".get-code").text("获取验证码");
+          $(".get-code").removeClass("isDisabled");
+          time = 60;
+          clickCode = true;
+        }
+      }, 1000);
+    }
+    function submit() {
+      if ($("#phone").val()) {
+        if ($("#code").val()) {
+          var submitData = {
+            client: "h5",
+            data: {
+              mobile: $("#phone").val(),
+              code: $("#code").val(),
+              invitationCode: invitor,
+            },
+            package: "registor-h5",
+            token: "",
+            version: "1.0.0",
+          };
+          var loading = weui.loading("数据提交中");
+          $.ajax({
+            url: request + "/api/logIn/userRegistrationForH5",
+            data: JSON.stringify(submitData),
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+              if (data.result === 1) {
+                weui.toast("注册成功", 2000);
+                setTimeout(function () {
+                  downloadApp();
+                  // window.open("http://openstore.1qishun.com/download.html", "_self");
+                }, 2000);
+              } else {
+                errorTips(data.message);
+              }
+            },
+            complete: function () {
+              loading.hide();
+            },
+          });
+        } else {
+          errorTips("请输入验证码");
+        }
+      } else {
+        errorTips("请输入手机号");
+      }
+    }
+    function errorTips(v) {
+      weui.topTips(v, {
+        duration: 2000,
+        className: "custom-classname",
+      });
+    }
+    function hideOverlay() {
+      $(".overlay").hide();
+    }
+    function stopProp(e) {
+      e.stopPropagation();
+    }
+    function isIOS() {
+      let Nav = window.navigator.userAgent.toLowerCase();
+      return Nav.match(/iphone/i) == "iphone";
+    }
+    function downloadApp() {
+      var url = "http://file.1qishun.com/upload/appVersion/%E6%98%93%E4%BC%81%E9%A1%BA.apk";
+      isIOS() && (url = "https://apps.apple.com/cn/app/id1478848866");
+      window.open(url, "_self");
+    }
   </script>
 </html>
