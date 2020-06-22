@@ -302,7 +302,7 @@
     </style>
   </body>
   <script>
-    // var request = "http://192.168.1.2:8805";
+    // var request = "https://qiyu.1qishun.com";
     var request = "https://appapi.1qishun.com";
     var clickCode = true,
       time = 60,
@@ -462,7 +462,7 @@
       return Nav.match(/iphone/i) == "iphone";
     }
     function downloadApp() {
-      var url = "http://file.1qishun.com/upload/appVersion/%E6%98%93%E4%BC%81%E9%A1%BA.apk";
+      http: var url = "http://file.1qishun.com/upload/appVersion/%E5%81%B6%E7%9A%84%E5%BA%97.apk";
       isIOS() && (url = "https://apps.apple.com/cn/app/id1478848866");
       window.open(url, "_self");
     }
