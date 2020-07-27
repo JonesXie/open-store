@@ -128,7 +128,13 @@
         </p>
         <p class="input-tips">联系人</p>
         <div class="input-wrap">
-          <input type="text" class="input input-name" id="name" placeholder="请填写您的姓名/公司名称" />
+          <input
+            type="text"
+            onblur="inputDown()"
+            class="input input-name"
+            id="name"
+            placeholder="请填写您的姓名/公司名称"
+          />
         </div>
         <p class="input-tips">联系方式</p>
         <div class="input-wrap">
@@ -149,9 +155,9 @@
       </div>
     </div>
     <!-- submit success -->
-    <div class="submit-success">
-      <div class="success-wrap">
-        <button class="success-btn" onclick="toggleSuccess()">我知道了</button>
+    <div class="submit-success" onclick="hideSuccess()">
+      <div class="success-wrap" onclick="hideSuccess()">
+        <button class="success-btn" onclick="hideSuccess()">我知道了</button>
       </div>
     </div>
     <link rel="stylesheet" href="./css/xie-ui-style.css" />
@@ -173,6 +179,7 @@
         return null;
       }
       function validTel(e) {
+        inputDown();
         if (!e.target.value) {
           return false;
         }
@@ -211,7 +218,7 @@
                 if (data.result === 1) {
                   $("#phone").val("");
                   $("#name").val("");
-                  toggleSuccess();
+                  $(".submit-success").show();
                 } else {
                   errorTips(data.message);
                 }
@@ -227,8 +234,25 @@
           errorTips("请输入联系人");
         }
       }
-      function toggleSuccess() {
-        $(".submit-success").toggle();
+      function hideSuccess() {
+        $(".submit-success").hide();
+      }
+      function inputDown() {
+        window.scrollTo(0, Math.max(document.body.clientHeight, document.documentElement.clientHeight));
+      }
+      function isAndroid() {
+        let Nav = window.navigator.userAgent.toLowerCase();
+        return Nav.match(/android/i) == "android";
+      }
+      //处理input focus时被键盘遮挡问题
+      if (isAndroid()) {
+        window.addEventListener("resize", function () {
+          if (document.activeElement.tagName == "INPUT" || document.activeElement.tagName == "TEXTAREA") {
+            window.setTimeout(function () {
+              document.activeElement.scrollIntoViewIfNeeded();
+            }, 0);
+          }
+        });
       }
     </script>
   </body>
