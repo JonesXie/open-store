@@ -379,8 +379,20 @@
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-              errorTips(data.message);
-              data.result === 1 && countDown();
+              if (data.result === 1) {
+                errorTips(data.message);
+                countDown();
+              } else {
+                if (data.message == "该号码已注册!") {
+                  errorTips("该号码已注册,即将为您下载！");
+                  setTimeout(function () {
+                    downloadApp();
+                    // window.open("http://openstore.1qishun.com/download.html", "_self");
+                  }, 2000);
+                } else {
+                  errorTips(data.message);
+                }
+              }
             },
           });
       } else {
@@ -431,7 +443,15 @@
                   // window.open("http://openstore.1qishun.com/download.html", "_self");
                 }, 2000);
               } else {
-                errorTips(data.message);
+                if (data.message == "该号码已注册!") {
+                  errorTips("该号码已注册,即将为您下载！");
+                  setTimeout(function () {
+                    downloadApp();
+                    // window.open("http://openstore.1qishun.com/download.html", "_self");
+                  }, 2000);
+                } else {
+                  errorTips(data.message);
+                }
               }
             },
             complete: function () {
