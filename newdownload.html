@@ -205,7 +205,7 @@
         <div class="code-wrap">
           <div class="form-item form-item-code">
             <img src="./img/code.png" alt="" class="item-img" />
-            <input placeholder="请输入验证码" type="number" id="code" class="input" />
+            <input placeholder="请输入验证码" onblur="inputDown()" type="number" id="code" class="input" />
           </div>
           <div class="get-code" onclick="getCode()">获取验证码</div>
         </div>
@@ -357,6 +357,7 @@
     });
 
     function validTel(e) {
+      inputDown();
       if (!e.target.value) {
         return false;
       }
@@ -476,10 +477,14 @@
     }
     function stopProp(e) {
       e.stopPropagation();
+      event.preventDefault();
     }
     function isIOS() {
       let Nav = window.navigator.userAgent.toLowerCase();
       return Nav.match(/iphone/i) == "iphone";
+    }
+    function inputDown() {
+      window.scrollTo(0, Math.max(document.body.clientHeight, document.documentElement.clientHeight));
     }
     function downloadApp() {
       // var url = "http://file.1qishun.com/upload/appVersion/%E5%81%B6%E7%9A%84%E5%BA%97.apk";
