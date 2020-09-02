@@ -9,6 +9,8 @@
     <title>供应商入住</title>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <link href="./css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
     <style>
       .head-bg {
         width: 100vw;
@@ -31,10 +33,15 @@
       }
       .content-tips {
         color: #8a8a8a;
-        font-size: 3.2vw;
+        font-size: 4vw;
         line-height: 2;
         text-align: center;
-        margin-bottom: 10vw;
+        margin-bottom: 12vw;
+        margin-top: 10vw;
+      }
+      .content-tips span {
+        color: #f35f00;
+        font-weight: bold;
       }
       .input-tips {
         color: #25283d;
@@ -59,6 +66,7 @@
         border-radius: 7vw;
         margin-top: 4vw;
         color: #fff;
+        letter-spacing: 1vw;
       }
       .loading-wrap {
         position: fixed;
@@ -124,25 +132,9 @@
     <div class="content">
       <div class="content-wrap">
         <p class="content-tips">
-          请填写相关信息，提交后经过审核，将由工作人员联系您 提供公司营业执照及施工资质证明。
+          请将产品资料发于此邮箱<span>1309904889@qq.com</span>，供应链部门工作人员收到邮件审核后将与您进行联系！
         </p>
-        <p class="input-tips">联系人</p>
-        <div class="input-wrap">
-          <input
-            type="text"
-            onblur="inputDown()"
-            class="input input-name"
-            id="name"
-            placeholder="请填写您的姓名/公司名称"
-          />
-        </div>
-        <p class="input-tips">联系方式</p>
-        <div class="input-wrap">
-          <input class="input input-phone" placeholder="请填写您的手机号" type="tel" id="phone" onblur="validTel(event)" />
-        </div>
-        <button class="submit-btn" onclick="submit()">
-          立即申请
-        </button>
+        <button class="submit-btn" data-clipboard-text="1309904889@qq.com" onclick="copy()">复制邮箱地址</button>
       </div>
     </div>
     <!-- 弹窗 -->
@@ -252,6 +244,28 @@
               document.activeElement.scrollIntoViewIfNeeded();
             }, 0);
           }
+        });
+      }
+    </script>
+    <script src="./js/clipboard.min.js"></script>
+    <script>
+      function copy() {
+        console.log(1);
+        var btnCopy = new ClipboardJS(".submit-btn");
+        console.log(btnCopy);
+        btnCopy.on("success", function (e) {
+          weui.toast("已复制", {
+            duration: 2000,
+            className: "custom-classname",
+          });
+          btnCopy.destroy();
+        });
+        btnCopy.on("error", function (e) {
+          weui.topTips("复制失败", {
+            duration: 3000,
+            className: "custom-classname",
+          });
+          btnCopy.destroy();
         });
       }
     </script>
