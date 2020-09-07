@@ -209,6 +209,13 @@
           </div>
           <div class="get-code" onclick="getCode()">获取验证码</div>
         </div>
+        <div class="code-wrap" id="valide-wrap">
+          <div class="form-item form-item-code valide-input">
+            <img src="./img/code.png" alt="" class="item-img" />
+            <input placeholder="请输入图形码" type="text" id="valideCode" class="input" />
+          </div>
+          <img src="" onclick="refresh()" class="show-valide" alt="" />
+        </div>
         <div class="download-wrap">
           <p class="submit" onclick="submit()">注册并下载</p>
           <p class="cancel" onclick="hideOverlay()">残忍拒绝</p>
@@ -299,10 +306,26 @@
         color: #999;
         font-size: 4vw;
       }
+      #valide-wrap {
+        align-items: center;
+        justify-content: center;
+        display: none;
+        margin-top: 0;
+        overflow: hidden;
+      }
+      .valide-input {
+        float: left;
+      }
+      .show-valide {
+        margin-left: 2vw;
+        width: 24vw;
+        height: 8vw;
+        margin-top: 1vw;
+        display: inline-block;
+      }
     </style>
   </body>
   <script>
-    // var request = "https://qiyu.1qishun.com";
     var request = "https://appapi.1qishun.com";
     var clickCode = true,
       time = 60,
@@ -364,6 +387,7 @@
       !reg.test(e.target.value) && ((e.target.value = null), errorTips("手机号不正确"));
     }
     function getCode() {
+      var valide = $("#valide-wrap").css("display") == "none";
       if ($("#phone").val()) {
         var smsData = {
           client: "h5",
@@ -372,6 +396,14 @@
           token: "",
           version: "1.0.0",
         };
+        if (!valide) {
+          if ($("#valideCode").val()) {
+            smsData.data.code = $("#valideCode").val();
+          } else {
+            errorTips("请输入图形验证码");
+            return;
+          }
+        }
         clickCode &&
           $.ajax({
             url: request + "/api/logIn/getRegistrationSmsCode",
@@ -379,18 +411,24 @@
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-              if (data.result === 1) {
-                errorTips(data.message);
-                countDown();
+              if (!!data.data) {
+                errorTips("为了您的安全，请填写图形码");
+                $("#valide-wrap").show();
+                $(".show-valide").attr("src", data.data);
               } else {
-                if (data.message == "该号码已注册!") {
-                  errorTips("该号码已注册,即将为您下载！");
-                  setTimeout(function () {
-                    downloadApp();
-                    // window.open("http://openstore.1qishun.com/download.html", "_self");
-                  }, 2000);
-                } else {
+                if (data.result === 1) {
                   errorTips(data.message);
+                  countDown();
+                } else {
+                  if (data.message == "该号码已注册!") {
+                    errorTips("该号码已注册,即将为您下载！");
+                    setTimeout(function () {
+                      downloadApp();
+                      // window.open("http://openstore.1qishun.com/download.html", "_self");
+                    }, 2000);
+                  } else {
+                    errorTips(data.message);
+                  }
                 }
               }
             },
@@ -398,6 +436,12 @@
       } else {
         errorTips("请输入手机号");
       }
+    }
+    function refresh() {
+      var validImg = $(".show-valide");
+      var num = Math.ceil(Math.random() * 10);
+      var url = validImg.attr("src") + "&num=" + num;
+      validImg.attr("src", url);
     }
     function countDown() {
       clickCode = false;
