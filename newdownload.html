@@ -140,6 +140,7 @@
         transform: translate(-50%, -50%);
       }
     </style>
+    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
   </head>
   <body>
     <div class="swiper-container">
@@ -207,7 +208,7 @@
             <img src="./img/code.png" alt="" class="item-img" />
             <input placeholder="请输入验证码" type="number" id="code" class="input" />
           </div>
-          <div class="get-code" onclick="getCode()">获取验证码</div>
+          <div class="get-code" id="TencentCaptcha" data-appid="2030818760" data-cbfn="txValid">获取验证码</div>
         </div>
         <div class="code-wrap" id="valide-wrap">
           <div class="form-item form-item-code valide-input">
@@ -386,12 +387,17 @@
       const reg = /^1[3-9]\d{9}$/;
       !reg.test(e.target.value) && ((e.target.value = null), errorTips("手机号不正确"));
     }
-    function getCode() {
+    window.txValid = function (res) {
+      if (res.ret === 0) {
+        getCode(res.randstr, res.ticket);
+      }
+    };
+    function getCode(randstr, ticket) {
       var valide = $("#valide-wrap").css("display") == "none";
       if ($("#phone").val()) {
         var smsData = {
           client: "h5",
-          data: { mobile: $("#phone").val() },
+          data: { mobile: $("#phone").val(), randstr: randstr, ticket: ticket },
           package: "registor-h5",
           token: "",
           version: "1.0.0",

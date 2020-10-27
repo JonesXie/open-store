@@ -7,14 +7,15 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no viewport-fit=cover"
     />
     <title>偶的店app下载</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <style></style>
-    <link href="../css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="./css/reset.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.1/css/swiper.min.css" rel="stylesheet" />
     <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.1/js/swiper.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
     <link href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" rel="stylesheet" type="text/css" />
     <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
     <style>
       .invitor {
         font-size: 3.5vw;
@@ -56,7 +57,7 @@
       .swiper-container {
         width: 100vw;
         height: 135vw; /* 540px */
-        background-image: url("../img/downlaod-swiper-bg.png");
+        background-image: url("./img/downlaod-swiper-bg.png");
         background-position: top center;
         background-size: 100% auto;
         background-repeat: no-repeat;
@@ -163,7 +164,7 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <div class="img-wrap">
-            <img class="swiper-img" src="../img/download-swiper1.png" alt="" />
+            <img class="swiper-img" src="./img/download-swiper1.png" alt="" />
             <div class="dialog">偶的店</div>
           </div>
           <div class="swiper-title">偶的店</div>
@@ -171,7 +172,7 @@
         </div>
         <div class="swiper-slide">
           <div class="img-wrap">
-            <img class="swiper-img" src="../img/download-swiper2.png" alt="" />
+            <img class="swiper-img" src="./img/download-swiper2.png" alt="" />
             <div class="dialog">超级供应链</div>
           </div>
           <div class="swiper-title">没有货源，也可以卖货</div>
@@ -179,7 +180,7 @@
         </div>
         <div class="swiper-slide">
           <div class="img-wrap">
-            <img class="swiper-img" src="../img/download-swiper3.png" alt="" />
+            <img class="swiper-img" src="./img/download-swiper3.png" alt="" />
             <div class="dialog">转发给朋友</div>
           </div>
           <div class="swiper-title">一键转发，轻松售卖</div>
@@ -187,7 +188,7 @@
         </div>
         <div class="swiper-slide">
           <div class="img-wrap">
-            <img class="swiper-img" src="../img/download-swiper4.png" alt="" />
+            <img class="swiper-img" src="./img/download-swiper4.png" alt="" />
             <div class="dialog">平台发货</div>
           </div>
           <div class="swiper-title">平台直接发货</div>
@@ -195,7 +196,7 @@
         </div>
         <div class="swiper-slide">
           <div class="img-wrap">
-            <img class="swiper-img" src="../img/download-swiper5.png" alt="" />
+            <img class="swiper-img" src="./img/download-swiper5.png" alt="" />
             <div class="dialog">佣金到账啦</div>
           </div>
           <div class="swiper-title">佣金自动结算</div>
@@ -205,10 +206,10 @@
       <div class="swiper-pagination"></div>
     </div>
     <div class="invitor" onclick="copyText()">
-      <img class="invitor-img" src="../img/invitor.png" alt="" />
+      <img class="invitor-img" src="./img/invitor.png" alt="" />
       <span class="invitor-txt">我的邀请码</span>
       <span id="invitor">400-002-5688</span>
-      <img class="invitor-copy" src="../img/copy.png" alt="" />
+      <img class="invitor-copy" src="./img/copy.png" alt="" />
     </div>
     <div class="btn-wrap">
       <div class="btn">下载手机APP</div>
@@ -216,15 +217,16 @@
     <div class="overlay" onclick="hideOverlay()">
       <div class="form" onclick="stopProp(event)">
         <div class="form-item">
-          <img src="../img/phone.png" alt="" class="item-img" />
+          <img src="./img/phone.png" alt="" class="item-img" />
           <input placeholder="请输入手机号码" type="tel" id="phone" class="input" onblur="validTel(event)" />
         </div>
         <div class="code-wrap">
           <div class="form-item form-item-code">
-            <img src="../img/code.png" alt="" class="item-img" />
+            <img src="./img/code.png" alt="" class="item-img" />
             <input placeholder="请输入验证码" type="number" id="code" class="input" />
           </div>
-          <div class="get-code" onclick="getCode()">获取验证码</div>
+          <!-- <div class="get-code" onclick="getCode()">获取验证码</div> -->
+          <div class="get-code" id="TencentCaptcha" data-appid="2030818760" data-cbfn="txValid">获取验证码</div>
         </div>
         <div class="code-wrap" id="valide-wrap">
           <div class="form-item form-item-code valide-input">
@@ -239,7 +241,7 @@
         </div>
       </div>
     </div>
-    <script src="../js/clipboard.min.js"></script>
+    <script src="./js/clipboard.min.js"></script>
     <style>
       .overlay {
         position: fixed;
@@ -410,12 +412,19 @@
       const reg = /^1[3-9]\d{9}$/;
       !reg.test(e.target.value) && ((e.target.value = null), errorTips("手机号不正确"));
     }
-    function getCode() {
+
+    window.txValid = function (res) {
+      if (res.ret === 0) {
+        getCode(res.randstr, res.ticket);
+      }
+    };
+
+    function getCode(randstr, ticket) {
       var valide = $("#valide-wrap").css("display") == "none";
       if ($("#phone").val()) {
         var smsData = {
           client: "h5",
-          data: { mobile: $("#phone").val() },
+          data: { mobile: $("#phone").val(), randstr: randstr, ticket: ticket },
           package: "registor-h5",
           token: "",
           version: "1.0.0",
