@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>偶的店活动页</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/h5Activity.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+  </head>
+  <body>
+    <section id="app">
+      <section class="content-box first-box">
+        <img src="./images/first-title.png" class="content-title" alt="" />
+        <div class="content">
+          <p class="content-info">活动期间登录APP，在首页或当前活动页面领取，每人限领一次</p>
+          <div class="coupon-box">
+            <img src="./images/coupon-1.png" class="coupon nomar" alt="" @click="receiveCoupon" />
+            <img src="./images/coupon-2.png" class="coupon nomar" alt="" @click="receiveCoupon" />
+            <img src="./images/coupon-3.png" class="coupon nomar" alt="" @click="receiveCoupon" />
+            <img src="./images/coupon-4.png" class="coupon" alt="" @click="receiveCoupon" />
+            <img src="./images/coupon-5.png" class="coupon" alt="" @click="receiveCoupon" />
+            <img src="./images/coupon-6.png" class="coupon" alt="" @click="receiveCoupon" />
+          </div>
+          <img src="./images/create-btn.png" class="btn" alt="" @click="receiveCoupon" />
+          <div class="rules">
+            <p class="rules-title">--------------<span style="margin: 0 5px">活动规则</span>--------------</p>
+            <div class="rules-content">
+              <div class="rules-row">
+                <div class="circle"><span>1</span></div>
+                <span>每次消费仅可使用一张代金券</span>
+              </div>
+              <template v-if="showFirstRules">
+                <div class="rules-row">
+                  <div class="circle"><span>2</span></div>
+                  <span>代金券与平台其它优惠活动不可同时享受</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>3</span></div>
+                  <span>新用户代金券每个账户仅有一次领取机会，代金券逾期未使用，视为用户主动放弃该福利权益，不补发</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>4</span></div>
+                  <span>代金券仅APP端可使用；</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>5</span></div>
+                  <span>对于采用不正当手段，技术手段从平台牟取非法利益的用户，本平台将追究其法律责任</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>6</span></div>
+                  <span>[ 偶的店 ]保留对本次活动的最终解释权</span>
+                </div>
+              </template>
+              <template v-else>
+                <div style="margin-left: 19px">
+                  <span>......</span>
+                </div>
+                <div style="margin-left: 19px">
+                  <span>......</span>
+                </div>
+              </template>
+            </div>
+            <div class="show-more">
+              <img
+                src="./images/showMore.png"
+                data-current="0"
+                :class="showFirstRules?'rotate':'normal'"
+                @click="showMore"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="content-box">
+        <img src="./images/second-title.png" class="content-title" alt="" />
+        <div class="content">
+          <p class="content-info">活动期间售指定商品享劲爆折扣采购价</p>
+          <div class="coupon-box">
+            <img src="./images/goods-cate.png" class="goods-cate" alt="" />
+          </div>
+          <img src="./images/notbegin.png" class="btn" alt="" />
+          <div class="rules">
+            <p class="rules-title">--------------<span style="margin: 0 5px">活动规则</span>--------------</p>
+            <div class="rules-content">
+              <div class="rules-row">
+                <div class="circle"><span>1</span></div>
+                <span> 活动期间登录，店主进入专享页面，享受商品采购折扣</span>
+              </div>
+              <template v-if="showSecondRules">
+                <div class="rules-row">
+                  <div class="circle"><span>2</span></div>
+                  <span>
+                    商品采购折扣仅在活动期间享受，即活动期间内完成采购商品的销售即可获得相应的折扣福利，活动结束后，该类商品将回复原始采购价</span
+                  >
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>3</span></div>
+                  <span> 专享折扣商品仅可在平台采购，不支持直接在平台购买，店主需要上架商品宣传店铺或具体销售</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>4</span></div>
+                  <span> 活动仅是商品采购价进行折扣优惠，店主可自行设定商品销售价</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>5</span></div>
+                  <span> 活动结束后，所有折扣采购商品将全部恢复原始采购价或下架，不再做另行通知</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>6</span></div>
+                  <span>
+                    活动期间，折扣优惠商品如有下架变更，所有变更即时生效，[ 偶的店
+                    ]平台保留最终解释权，不再做另行通知</span
+                  >
+                </div>
+              </template>
+              <template v-else>
+                <div style="margin-left: 19px">
+                  <span>......</span>
+                </div>
+                <div style="margin-left: 19px">
+                  <span>......</span>
+                </div>
+              </template>
+            </div>
+            <div class="show-more">
+              <img
+                src="./images/showMore.png"
+                data-current="1"
+                :class="showSecondRules?'rotate':'normal'"
+                @click="showMore"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="content-box last-box">
+        <img src="./images/third-title.png" class="content-title" alt="" />
+        <div class="content">
+          <div class="coupon-box">
+            <img src="./images/first-time.png" class="re" alt="" />
+            <img src="./images/second-time.png" class="re" alt="" />
+            <img src="./images/third-time.png" class="re" alt="" />
+          </div>
+          <div class="rules">
+            <p class="rules-title">--------------<span style="margin: 0 5px">活动规则</span>--------------</p>
+            <div class="rules-content">
+              <div class="rules-row">
+                <div class="circle"><span>1</span></div>
+                <span>活动时间：11.26-11.30</span>
+              </div>
+              <template v-if="showThirdRules">
+                <div class="rules-row">
+                  <div class="circle"><span>2</span></div>
+                  <span>活动期间内，每天9：00、13：00、19：00三场红包雨，每场红包雨持续一小时</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>3</span></div>
+                  <span>用户参与每场红包雨可以获得一个随机红包奖励，每天最多可以获得三个红包奖励</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>4</span></div>
+                  <span
+                    >红包奖励包括现金奖励、消费代金券，现金红包奖励将发放至用户的任务账户，代金券将发放至“我的-代金券”中</span
+                  >
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>5</span></div>
+                  <span>代金券有使用有效期，请在有效区内使用，代金券不可折现、不可转赠；逾期未使用视为放弃优惠福利</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>6</span></div>
+                  <span>对于采用不正当手段、技术手段从平台牟取非法利益的用户，本平台将追究其法律责任</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>7</span></div>
+                  <span>[ 偶的店 ]保留对本次活动的最终解释权</span>
+                </div>
+              </template>
+              <template v-else>
+                <div style="margin-left: 19px">
+                  <span>......</span>
+                </div>
+                <div style="margin-left: 19px">
+                  <span>......</span>
+                </div>
+              </template>
+            </div>
+            <div class="show-more">
+              <img
+                src="./images/showMore.png"
+                data-current="2"
+                :class="showThirdRules?'rotate':'normal'"
+                @click="showMore"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mask" v-if="isShowMask">
+        <div class="mask-content">
+          <img class="cancel-btn" src="./images/cancel.png" alt="" @click="isShowMask = false" />
+          <p class="mask-info">{{receiveType[`${receiveStatus}`]}}</p>
+          <div class="mask-tip">代金券已放至我的-卡券包中，快去使用吧~</div>
+          <div class="mask-btn" @click="jumpTo">查看代金券</div>
+        </div>
+      </section>
+    </section>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.10/vue.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0/axios.min.js"></script>
+  <script>
+    // var request = "http://192.168.110.78:8805";
+    var request = "http://appapi.1qishun.com";
+    var htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    var htmlDom = document.getElementsByTagName("html")[0];
+    htmlDom.style.fontSize = htmlWidth / 10 + "px";
+    var Nav = window.navigator.userAgent.toLowerCase();
+    var isIphone = `${Nav}`.includes("iphone");
+    var userId;
+    var reactiveData = {
+      showFirstRules: false,
+      showSecondRules: false,
+      showThirdRules: false,
+      isShowMask: false,
+      receiveType: {
+        0: "已领取过代金券",
+        1: "领取完成",
+      },
+      receiveStatus: 1,
+    };
+    let _data = {
+      jumpName: isIphone ? "YQSTicketMannagerVC" : "com.lanhai.yiqishun.mine.fragment.MineCouponFragment",
+      jumpValue: {
+        url: URL + `?userId=${userId}`,
+        [isIphone ? "pageTitle" : "title"]: name,
+      },
+    };
+    let temp = false;
+    let vm = new Vue({
+      el: "#app",
+      data: reactiveData,
+      created() {},
+      methods: {
+        showMore(e) {
+          let current = +e.target.dataset.current;
+          switch (current) {
+            case 0:
+              this.showFirstRules = !this.showFirstRules;
+              break;
+            case 1:
+              this.showSecondRules = !this.showSecondRules;
+              break;
+            case 2:
+              this.showThirdRules = !this.showThirdRules;
+              break;
+          }
+        },
+        jump(_data) {
+          if (window.webkit || window.android) {
+            if (isIphone) {
+              window.webkit.messageHandlers.callIOS.postMessage(_data);
+            } else {
+              window.android.callAndroid(JSON.stringify(_data));
+            }
+          } else {
+            alert("请在APP中打开！");
+          }
+        },
+        jumpTo() {
+          this.jump(_data);
+        },
+        receiveCoupon() {
+          if (!userId) {
+            alert("非法路径");
+            return;
+          }
+          if (!temp) {
+            temp = true;
+            axios
+              .get(request + "/api/userVoucher/addUserVoucherToH5?userId=" + userId + "&issuingId=12")
+              .then(({ data }) => {
+                this.receiveStatus = data.result;
+                temp = false;
+                this.isShowMask = true;
+              })
+              .catch((err) => {
+                alert("网络错误，请稍后重试!");
+              });
+          }
+        },
+      },
+    });
+    (function () {
+      userId = getQueryString("userId");
+      if (!userId) {
+        alert("非法路径");
+        return;
+      }
+    })();
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+  </script>
+</html>
