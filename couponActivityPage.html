@@ -28,28 +28,32 @@
             <div class="rules-content">
               <div class="rules-row">
                 <div class="circle"><span>1</span></div>
-                <span>每次消费仅可使用一张代金券</span>
+                <span>每次消费仅可使用一张代金券；</span>
               </div>
               <template v-if="showFirstRules">
                 <div class="rules-row">
                   <div class="circle"><span>2</span></div>
-                  <span>代金券与平台其它优惠活动不可同时享受</span>
+                  <span>代金券与平台其他优惠活动不可同时享受；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>3</span></div>
-                  <span>新用户代金券每个账户仅有一次领取机会，代金券逾期未使用，视为用户主动放弃该福利权益，不补发</span>
+                  <span>每个账户仅有一次领取机会，代金券逾期未使用，视为用户主动放弃该福利权益，不补发；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>4</span></div>
-                  <span>代金券仅APP端可使用；</span>
+                  <span>代金券仅可在【偶的店】APP端使用；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>5</span></div>
-                  <span>对于采用不正当手段，技术手段从平台牟取非法利益的用户，本平台将追究其法律责任</span>
+                  <span>对于采用不正当手段、技术手段从平台牟取非法利益的用户，本平台将依法追究其责任；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>6</span></div>
-                  <span>[ 偶的店 ]保留对本次活动的最终解释权</span>
+                  <span>所有使用代金券的订单，如在发货后产生退货行为，代金券不退还，不折现；</span>
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>7</span></div>
+                  <span>【偶的店】保留对本次活动的最终解释权。</span>
                 </div>
               </template>
               <template v-else>
@@ -86,32 +90,31 @@
             <div class="rules-content">
               <div class="rules-row">
                 <div class="circle"><span>1</span></div>
-                <span> 活动期间登录，店主进入专享页面，享受商品采购折扣</span>
+                <span>活动期间，店主进入专享页面，享受商品采购折扣福利；</span>
               </div>
               <template v-if="showSecondRules">
                 <div class="rules-row">
                   <div class="circle"><span>2</span></div>
-                  <span>
-                    商品采购折扣仅在活动期间享受，即活动期间内完成采购商品的销售即可获得相应的折扣福利，活动结束后，该类商品将回复原始采购价</span
-                  >
+                  <span> 商品采购折扣福利仅在活动期间享受，活动结束后，该类商品将恢复原始采购价；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>3</span></div>
-                  <span> 专享折扣商品仅可在平台采购，不支持直接在平台购买，店主需要上架商品宣传店铺或具体销售</span>
+                  <span
+                    >专享折扣商品仅可在平台采购，不支持直接在平台购买，店主需要上架商品至小店，宣传店铺或具体销售；</span
+                  >
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>4</span></div>
-                  <span> 活动仅是商品采购价进行折扣优惠，店主可自行设定商品销售价</span>
+                  <span>活动仅是商品采购价进行折扣优惠，店主可自行设定商品销售价；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>5</span></div>
-                  <span> 活动结束后，所有折扣采购商品将全部恢复原始采购价或下架，不再做另行通知</span>
+                  <span> 活动结束后，所有折扣采购商品将全部恢复原始采购价或下架，不再做另行通知；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>6</span></div>
-                  <span>
-                    活动期间，折扣优惠商品如有下架变更，所有变更即时生效，[ 偶的店
-                    ]平台保留最终解释权，不再做另行通知</span
+                  <span
+                    >活动期间，折扣优惠商品如有下架变更，所有变更即时生效，【偶的店】平台保留最终解释权，不再做另行通知。</span
                   >
                 </div>
               </template>
@@ -149,35 +152,37 @@
             <div class="rules-content">
               <div class="rules-row">
                 <div class="circle"><span>1</span></div>
-                <span>活动时间：11.26-11.30</span>
+                <span>活动期间内，每天9:00、13:00、18:00三场红包雨，每场红包雨持续一小时；</span>
               </div>
               <template v-if="showThirdRules">
                 <div class="rules-row">
                   <div class="circle"><span>2</span></div>
-                  <span>活动期间内，每天9：00、13：00、19：00三场红包雨，每场红包雨持续一小时</span>
-                </div>
-                <div class="rules-row">
-                  <div class="circle"><span>3</span></div>
-                  <span>用户参与每场红包雨可以获得一个随机红包奖励，每天最多可以获得三个红包奖励</span>
-                </div>
-                <div class="rules-row">
-                  <div class="circle"><span>4</span></div>
                   <span
-                    >红包奖励包括现金奖励、消费代金券，现金红包奖励将发放至用户的任务账户，代金券将发放至“我的-代金券”中</span
+                    >用户参与每场红包雨可以获得一个随机红包奖励，每天最多可以获得三个红包奖励，每场红包雨仅可获得一个红包奖励；</span
                   >
                 </div>
                 <div class="rules-row">
+                  <div class="circle"><span>3</span></div>
+                  <span
+                    >红包奖励包括现金奖励、消费代金券；现金红包奖励将发放至用户的任务账户，代金券将发放至“我的-卡券包”中；</span
+                  >
+                </div>
+                <div class="rules-row">
+                  <div class="circle"><span>4</span></div>
+                  <span>请在有效期内使用代金券，且代金券不可折现、不可转赠；逾期未使用视为放弃优惠福利；</span>
+                </div>
+                <div class="rules-row">
                   <div class="circle"><span>5</span></div>
-                  <span>代金券有使用有效期，请在有效区内使用，代金券不可折现、不可转赠；逾期未使用视为放弃优惠福利</span>
+                  <span>对于采用不正当手段、技术手段从平台牟取非法利益的用户，本平台将依法追究其法律责任；</span>
                 </div>
                 <div class="rules-row">
                   <div class="circle"><span>6</span></div>
-                  <span>对于采用不正当手段、技术手段从平台牟取非法利益的用户，本平台将追究其法律责任</span>
+                  <span>【偶的店】保留对本次活动的最终解释权。</span>
                 </div>
-                <div class="rules-row">
+                <!-- <div class="rules-row">
                   <div class="circle"><span>7</span></div>
                   <span>[ 偶的店 ]保留对本次活动的最终解释权</span>
-                </div>
+                </div> -->
               </template>
               <template v-else>
                 <div style="margin-left: 19px">
