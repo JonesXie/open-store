@@ -286,7 +286,7 @@
           if (!temp) {
             temp = true;
             axios
-              .get(request + "/api/userVoucher/addUserVoucherToH5?userId=" + userId + "&issuingId=12")
+              .get(request + "/api/userVoucher/addUserVoucherToH5?userId=" + userId + "&issuingId=45")
               .then(({ data }) => {
                 this.receiveStatus = data.result;
                 temp = false;
