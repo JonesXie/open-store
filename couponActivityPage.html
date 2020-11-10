@@ -84,7 +84,7 @@
           <div class="coupon-box">
             <img src="./images/goods-cate.png" class="goods-cate" alt="" />
           </div>
-          <img src="./images/notbegin.png" class="btn" alt="" />
+          <img src="./images/toGoods.png" class="btn" alt="" @click="toGoods" />
           <div class="rules">
             <p class="rules-title">--------------<span style="margin: 0 5px">活动规则</span>--------------</p>
             <div class="rules-content">
@@ -218,8 +218,8 @@
   <script src="./js/vue.min.js"></script>
   <script src="./js/axios.min.js"></script>
   <script>
-    // var request = "http://192.168.110.78:8805";
-    var request = "http://appapi.1qishun.com";
+    var request = "http://192.168.110.78:8805";
+    // var request = "http://appapi.1qishun.com";
     var htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
     var htmlDom = document.getElementsByTagName("html")[0];
     htmlDom.style.fontSize = htmlWidth / 10 + "px";
@@ -274,6 +274,9 @@
           } else {
             alert("请在APP中打开！");
           }
+        },
+        toGoods() {
+          window.location.href = "https://activity.1qishun.com/shop/choose";
         },
         jumpTo() {
           this.jump(_data);
