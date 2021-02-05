@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no viewport-fit=cover"
+    />
+    <title>偶的店app下载</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <style>
+      .content {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url("./img/background.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top center;
+        box-sizing: border-box;
+      }
+      .link {
+        position: relative;
+        padding-top: 20vh;
+        /* padding-top: 130px; */
+        text-align: center;
+        z-index: 9;
+      }
+      .andriod {
+        width: 48vw;
+        height: 10vw;
+        display: block;
+        margin: 0 auto;
+        background-image: url("./img/andriod.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        margin-top: 5vw;
+      }
+      .ios {
+        width: 48vw;
+        height: 10vw;
+        display: block;
+        margin: 0 auto;
+        background-image: url("./img/iphone.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* 浏览器打开蒙版 */
+      .share-alert {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+        display: none;
+      }
+      .share-alert > .share-alert-bg {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        margin: 0 auto;
+      }
+      .share-alert > .share-alert-content {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 20px;
+        z-index: 10001;
+        text-align: center;
+      }
+      .share-alert > .share-alert-content > img {
+        width: 80%;
+        margin-bottom: 30px;
+      }
+      .share-alert > .share-alert-content > a > img {
+        width: 30%;
+        height: 7%;
+      }
+      .download {
+        width: 50%;
+        margin: 0 auto;
+        height: 36px;
+        line-height: 36px;
+        background-color: #f95450;
+        color: #fff;
+        text-align: center;
+        border-radius: 20px;
+        font-size: 16px;
+        letter-spacing: 1px;
+      }
+      .download-tips {
+        font-size: 12px;
+        margin-top: 10px;
+        color: #aaa;
+      }
+      .turn-link {
+        width: 50%;
+        margin: 0 auto 10px;
+        height: 36px;
+        line-height: 36px;
+        background-color: #ffc344;
+        color: #fff;
+        text-align: center;
+        border-radius: 20px;
+        font-size: 16px;
+        display: inline-block;
+        letter-spacing: 1px;
+      }
+    </style>
+    <link href="./css/reset.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="content">
+      <div class="link">
+        <!-- <a href="yqs-deeplinking://" class="ios"></a> -->
+        <!-- <a
+          href="intent://#Intent;scheme=oushop;package=com.lanhai.yiqishun;end"
+          class="andriod"
+          target="_self"
+          id="andriod-btn"
+        ></a> -->
+        <a href="" id="link" class="turn-link">点击跳转到APP</a>
+        <div class="download" onclick="downloadApp()">点击下载APP</div>
+        <div class="download-tips">*若未安装APP，请点击下载APP</div>
+      </div>
+    </div>
+    <div class="share-alert" id="share-alert">
+      <div class="share-alert-bg"></div>
+      <div class="share-alert-content">
+        <img alt="" src="./img/shade.png" />
+        <a class="close" onclick="closeAlert()" href="javascript:;">
+          <img alt="" src="./img/know.png" />
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    var share = document.getElementById("share-alert");
+    // 验证微信内浏览器
+    function validWXNav() {
+      var ua = navigator.userAgent.toLowerCase();
+      return ua.match(/MicroMessenger/i) == "micromessenger";
+    }
+    function closeAlert() {
+      share.style.display = "none";
+    }
+    function dealQuery() {
+      var query = decodeURIComponent(window.location.search);
+      var firstAnd = query.indexOf("&");
+      if (firstAnd === -1) {
+        firstAnd = query.length;
+      }
+      var path = query.slice(6, firstAnd);
+      var params = query.slice(firstAnd + 1);
+      return {
+        path: path,
+        params: params,
+      };
+    }
+    function isIOS() {
+      let Nav = window.navigator.userAgent.toLowerCase();
+      return Nav.match(/iphone/i) == "iphone";
+    }
+    function callFn(obj) {
+      var openUrl;
+      if (isIOS()) {
+        openUrl = "yqs-deeplinking://" + obj.path + "?" + obj.params;
+      } else {
+        openUrl = "oushop://yiqishun/" + obj.path + "?" + obj.params;
+      }
+      var linkBtn = document.getElementById("link");
+      linkBtn.href = openUrl;
+      window.location.href = openUrl;
+    }
+    function downloadApp() {
+      var openUrl;
+      if (isIOS()) {
+        openUrl = "https://apps.apple.com/cn/app/id1478848866";
+      } else {
+        openUrl = "http://file.1qishun.com/upload/appVersion/%E5%81%B6%E7%9A%84%E5%BA%97.apk";
+      }
+      window.location.href = openUrl;
+    }
+    //弹窗
+    (function () {
+      if (validWXNav()) {
+        share.style.display = "block";
+      } else {
+        var obj = dealQuery();
+        callFn(obj);
+      }
+    })();
+  </script>
+
+  <script>
+    var options = {
+      scheme: {
+        protocol: "oushop",
+      },
+      intent: {
+        package: "com.lanhai.yiqishun",
+        scheme: "oushop",
+      },
+      universal: {
+        host: "qiyu.1qishun.com",
+        pathKey: "",
+      },
+      appstore: "https://apps.apple.com/cn/app/id1478848866",
+      yingyongbao: "https://sj.qq.com/myapp/detail.htm?apkName=com.lanhai.yiqishun",
+      fallback: "",
+    };
+  </script>
+</html>
